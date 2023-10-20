@@ -18,45 +18,30 @@ class ViewController: UIViewController {
     @IBOutlet weak var darkButton: UIButton!
     
     var darkTheme = false
+    var mainText = "Dark Theme Off"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        darkThemeIsOn(ison: darkTheme)
         darkButton.layer.cornerRadius = 10
     }
     
     @IBAction func darkButtonTapped(_ sender: Any) {
         print("darkButtonTapped")
-        
-        darkTheme = darkTheme ? false : true
-        
-        if darkTheme {
-            
-            view.backgroundColor = UIColor.black
-            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-            
-            
-            darkButton.setTitle("Dark Theme Off", for: .normal)
-            darkButton.setTitleColor(UIColor.black, for: .normal)
-            darkButton.backgroundColor = .white
-            
-            messageButton.tintColor = .white
-            folderButton.tintColor = .white
-            
-        } else {
-            
-            view.backgroundColor = UIColor.white
-            navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-            
-            darkButton.setTitle("Dark Theme On", for: .normal)
-            darkButton.setTitleColor(UIColor.white, for: .normal)
-            darkButton.backgroundColor = .black
-            
-            messageButton.tintColor = .black
-            folderButton.tintColor = .black
-            
-        }
-        
+        darkThemeIsOn(ison: darkTheme)
+    }
+    
+    func darkThemeIsOn(ison: Bool) {
+        mainText = ison ? "Dark Theme Off" : "Dark Theme On"
+        darkButton.setTitle(mainText, for: .normal)
+        darkButton.setTitleColor(ison ? UIColor.black : UIColor.white, for: .normal)
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: !ison ? UIColor.black : UIColor.white]
+        darkButton.backgroundColor = !ison ? .black : .white
+        view.backgroundColor = ison ? UIColor.black : UIColor.white
+        messageButton.tintColor = !ison ? .black : .white
+        folderButton.tintColor = !ison ? .black : .white
+        darkTheme.toggle()
     }
     
     @IBAction func messageTapped(_ sender: Any) {
@@ -69,24 +54,4 @@ class ViewController: UIViewController {
     
 }
 
-extension UIViewController {
-    
-    func basicAlert(title: String?, message: String?) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        
-        present(alert, animated: true)
-    }
-}
 
-extension UIViewController {
-    
-    func basicMessage(title: String?, message: String?) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        
-        present(alert, animated: true)
-    }
-}

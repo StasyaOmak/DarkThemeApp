@@ -15,5 +15,3 @@ Features and Improvements
 6. Main Screen Image:
     * Added an image to the main screen, enhancing the user interface and making it more engaging.
 
-commit 
-commit2
